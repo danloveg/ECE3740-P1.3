@@ -1,0 +1,7 @@
+# Ignore build, debug, and dist
+build/
+debug/
+dist/
+
+# Ignore the private folder in nbproject
+nbproject/private
