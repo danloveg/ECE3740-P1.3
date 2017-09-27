@@ -79,7 +79,7 @@
 //#define STACK_USE_TFTP_CLIENT			// Trivial File Transfer Protocol client
 //#define STACK_USE_GENERIC_TCP_CLIENT_EXAMPLE	// HTTP Client example in GenericTCPClient.c
 //#define STACK_USE_LED_TCP_SERVER_EXAMPLE	// ToUpper server example in GenericTCPServer.c
-//#define STACK_USE_GENERIC_TCP_SERVER_EXAMPLE	// ToUpper server example in GenericTCPServer.c/
+#define STACK_USE_GENERIC_TCP_SERVER_EXAMPLE	// ToUpper server example in GenericTCPServer.c/
 //#define STACK_USE_TELNET_SERVER			// Telnet server
 #define STACK_USE_ANNOUNCE				// Microchip Embedded Ethernet Device Discoverer server/client
 //#define STACK_USE_DNS					// Domain Name Service Client for resolving hostname strings to IP addresses
@@ -94,6 +94,7 @@
 //#define STACK_USE_ZEROCONF_LINK_LOCAL	// Zeroconf IPv4 Link-Local Addressing
 //#define STACK_USE_ZEROCONF_MDNS_SD		// Zeroconf mDNS and mDNS service discovery
 
+#define STACK_USE_TCP_TO_UPPER_SERVER
 
 // =======================================================================
 //   Data Storage Options
@@ -246,7 +247,7 @@
 	// Allocate how much total RAM (in bytes) you want to allocate
 	// for use by your TCP TCBs, RX FIFOs, and TX FIFOs.
 	#define TCP_ETH_RAM_SIZE					(0ul)
-	#define TCP_PIC_RAM_SIZE					(12669 + 10*2 + 44 + 200 + 20)
+	#define TCP_PIC_RAM_SIZE					(12669 + 10*2 + 44 + 200 + 20 + (2 + 44 + 2 + 2))
 //	#define TCP_PIC_RAM_SIZE					(16384ul)
 	#define TCP_SPI_RAM_SIZE					(0ul)
 	#define TCP_SPI_RAM_BASE_ADDRESS			(0x00)
@@ -266,6 +267,7 @@
 		#define TCP_PURPOSE_BERKELEY_SERVER 10
 		#define TCP_PURPOSE_BERKELEY_CLIENT 11
 		#define TCP_PURPOSE_LED_SERVER 12
+        #define TCP_PURPOSE_TCP_TO_UPPER_SERVER 13
 	#define END_OF_TCP_SOCKET_TYPES
 
 	#if defined(__TCP_C)
@@ -289,7 +291,7 @@
 			WORD wTXBufferSize;
 			WORD wRXBufferSize;
 		} TCPSocketInitializer[] =
-		{
+        {
 			{TCP_PURPOSE_GENERIC_TCP_CLIENT, TCP_PIC_RAM, 125, 1200},
 			{TCP_PURPOSE_GENERIC_TCP_SERVER, TCP_PIC_RAM, 20, 20},
 			{TCP_PURPOSE_TELNET, TCP_PIC_RAM, 200, 150},
@@ -308,6 +310,7 @@
 			//{TCP_PURPOSE_BERKELEY_SERVER, TCP_PIC_RAM, 25, 20},
 			//{TCP_PURPOSE_BERKELEY_CLIENT, TCP_PIC_RAM, 125, 100},
 			{TCP_PURPOSE_LED_SERVER, TCP_PIC_RAM, 200, 20},
+            {TCP_PURPOSE_TCP_TO_UPPER_SERVER, TCP_PIC_RAM, 2, 2}
 		};
 		#define END_OF_TCP_CONFIGURATION
 	#endif

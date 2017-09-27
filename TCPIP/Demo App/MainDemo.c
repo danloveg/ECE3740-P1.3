@@ -90,6 +90,9 @@ BYTE AN0String[8];
 
 void LEDTCPServer(void);
 
+// Add prototype for TCPToUpperServer
+extern void TCPToUpperServer(void);
+
 // Private helper functions.
 // These may or may not be present in all applications.
 static void InitAppConfig(void);
@@ -423,6 +426,11 @@ int main(void)
 				g_WpsPassphrase.valid = FALSE;
 			}
         #endif	/* defined(DERIVE_KEY_FROM_PASSPHRASE_IN_HOST) */
+
+        // Make a call to the ToUpperServer task
+        #if defined(STACK_USE_TCP_TO_UPPER_SERVER)
+        TCPToUpperServer();
+        #endif
 	}
 }
 
