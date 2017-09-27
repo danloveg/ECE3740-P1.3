@@ -5,3 +5,4 @@ dist/
 
 # Ignore the private folder in nbproject
 nbproject/private
+/TCPIP/Demo App/XC32-PIC32_ETH_SK_ETH795.X/nbproject/private/
