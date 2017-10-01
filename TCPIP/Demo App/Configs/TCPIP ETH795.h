@@ -94,7 +94,7 @@
 //#define STACK_USE_ZEROCONF_LINK_LOCAL	// Zeroconf IPv4 Link-Local Addressing
 //#define STACK_USE_ZEROCONF_MDNS_SD		// Zeroconf mDNS and mDNS service discovery
 
-#define STACK_USE_TCP_TO_UPPER_SERVER
+#define STACK_USE_TCP_GPIO_SERVER
 
 // =======================================================================
 //   Data Storage Options
@@ -267,7 +267,7 @@
 		#define TCP_PURPOSE_BERKELEY_SERVER 10
 		#define TCP_PURPOSE_BERKELEY_CLIENT 11
 		#define TCP_PURPOSE_LED_SERVER 12
-        #define TCP_PURPOSE_TCP_TO_UPPER_SERVER 13
+        #define TCP_PURPOSE_TCP_GPIO_SERVER 13
 	#define END_OF_TCP_SOCKET_TYPES
 
 	#if defined(__TCP_C)
@@ -312,7 +312,7 @@
 			//{TCP_PURPOSE_BERKELEY_SERVER, TCP_PIC_RAM, 25, 20},
 			//{TCP_PURPOSE_BERKELEY_CLIENT, TCP_PIC_RAM, 125, 100},
 			{TCP_PURPOSE_LED_SERVER, TCP_PIC_RAM, 200, 20},
-            {TCP_PURPOSE_TCP_TO_UPPER_SERVER, TCP_PIC_RAM, 200, 20}
+            {TCP_PURPOSE_TCP_GPIO_SERVER, TCP_PIC_RAM, 200, 20}
 		};
 		#define END_OF_TCP_CONFIGURATION
 	#endif

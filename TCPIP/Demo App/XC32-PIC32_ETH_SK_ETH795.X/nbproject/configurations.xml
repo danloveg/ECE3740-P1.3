@@ -81,6 +81,7 @@
       <itemPath>../Configs/HWP PIC32_ETH_SK_ETH795.h</itemPath>
       <itemPath>../ConfigurationBits.h</itemPath>
       <itemPath>../PortConfig.h</itemPath>
+      <itemPath>../TCPGPIOServer.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -160,8 +161,8 @@
       <itemPath>../CustomSSLCert.c</itemPath>
       <itemPath>../MainDemo.c</itemPath>
       <itemPath>../LEDTCPServer.c</itemPath>
-      <itemPath>../TCPLedToggleServer.c</itemPath>
       <itemPath>../portIO.c</itemPath>
+      <itemPath>../TCPGPIOServer.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

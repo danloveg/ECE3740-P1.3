@@ -71,7 +71,7 @@
 #include "TCPIP Stack/ZeroconfMulticastDNS.h"
 #endif
 
-#if defined(STACK_USE_TCP_TO_UPPER_SERVER)
+#if defined(STACK_USE_TCP_GPIO_SERVER)
 #include "PortConfig.h"
 #endif
 
@@ -95,7 +95,7 @@ BYTE AN0String[8];
 void LEDTCPServer(void);
 
 // Add prototype for TCPToUpperServer
-extern void TCPToUpperServer(void);
+extern void TCPGPIOServer(void);
 
 // Private helper functions.
 // These may or may not be present in all applications.
@@ -302,7 +302,7 @@ int main(void)
 	#endif
 
     
-    #if defined(STACK_USE_TCP_TO_UPPER_SERVER)
+    #if defined(STACK_USE_TCP_GPIO_SERVER)
     portInit();
     #endif
 
@@ -437,8 +437,8 @@ int main(void)
         #endif	/* defined(DERIVE_KEY_FROM_PASSPHRASE_IN_HOST) */
 
         // Make a call to the ToUpperServer task
-        #if defined(STACK_USE_TCP_TO_UPPER_SERVER)
-        TCPToUpperServer();
+        #if defined(STACK_USE_TCP_GPIO_SERVER)
+        TCPGPIOServer();
         #endif
 	}
 }

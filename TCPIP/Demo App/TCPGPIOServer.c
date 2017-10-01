@@ -1,72 +1,37 @@
 #include "TCPIPConfig.h"
 
-#if defined(STACK_USE_TCP_TO_UPPER_SERVER)
+#if defined(STACK_USE_TCP_GPIO_SERVER)
 
 #include "TCPIP Stack/TCPIP.h"
 #include <ctype.h>
 #include <string.h>
 #include "PortConfig.h"
+#include "TCPGPIOServer.h"
 
-// Defines which port the server will listen on
-#define TCP_TO_UPPER_SERVER_PORT    7777
-
-static enum _myState {
-    SM_OPEN_SERVER_SOCKET = 0,
-    SM_LISTEN_FOR_CLIENT_CONNECTION,
-    SM_DISPLAY_MENU,
-    SM_FIND_COMMAND,
-    SM_PROCESS_COMMAND,
-    SM_DISCONNECT_CLIENT
-} myState = SM_OPEN_SERVER_SOCKET;
-
-static enum _commandEnums {
-    DO_NO_COMMAND = 0,
-    DO_QUIT,
-    DO_FIND,
-} myCommand = DO_NO_COMMAND;
-
-static enum _parsedCommand {
-    INVALID = 0,
-    LED1,
-    LED2,
-    LED3,
-    LED4,
-    NOT_LED1,
-    NOT_LED2,
-    NOT_LED3,
-    NOT_LED4,
-    BTN1,
-    BTN2,
-    BTN3
-} executeCommand = INVALID;
-
-typedef enum _parsedCommand parsedCommand;
+// State variables
+state myState = SM_OPEN_SERVER_SOCKET;
+command myCommand = DO_NO_COMMAND;
+parsedCommand executeCommand = INVALID;
+int menuState = 0;
+BOOL promptDisplayed = FALSE;
 
 const char *menu[] = {"\n\n    Enter a command to interact with board, or enter q to quit\n\n",
                       "LED1 on: LED1      LED1 off: ~LED1      LED2 on: LED2      LED2 off: ~LED2\n",
                       "LED3 on: LED3      LED3 off: ~LED3      LED4 on: LED4      LED4 off: ~LED4\n",
                       "Get BTN1 state: BTN1       Get BTN2 state: BTN2       Get BTN3 state: BTN3\n"};
 
-int menuState = 0;
-
-const int MAX_CMD_LENGTH = 5;
-
-parsedCommand findCommand (char *u);
-
-BOOL promptDisplayed = FALSE;
-
 
 /*****************************************************************************
   Function:
-        void TCP_To_Upper_Server(void)
+        void TCPGPIOServer(void)
 
   Summary:
-        Implements a simple TCP Server, which inputs a character form a client, converts the received character to upper case, and sends it back to the client.
-
+        Implements a simple TCP Server, which accepts a set of commands from the
+        user to turn LEDs on the board on/off, and monitor push buttons.
+  
   Description:
-        Implements a simple TCP Server, which inputs a character form a client, converts the received character to upper case, and sends it back to the client.
-	
-        This example can be used as a model for many TCP server applications.
+        Implements a simple TCP Server, which accepts a set of commands from the
+        user to turn LEDs on the board on/off, and monitor push buttons.
 
   Precondition:
         TCP is initialized.
@@ -77,7 +42,7 @@ BOOL promptDisplayed = FALSE;
   Returns:
         None
  ***************************************************************************/
-void TCPToUpperServer(void) {
+void TCPGPIOServer(void) {
     static TCP_SOCKET mySocket;
     WORD numBytes = 0;
     BYTE userCmd[MAX_CMD_LENGTH + 1];
@@ -86,7 +51,7 @@ void TCPToUpperServer(void) {
     switch (myState) {
         // Open a server socket
         case SM_OPEN_SERVER_SOCKET:
-            mySocket = TCPOpen(0, TCP_OPEN_SERVER, TCP_TO_UPPER_SERVER_PORT, TCP_PURPOSE_TCP_TO_UPPER_SERVER);
+            mySocket = TCPOpen(0, TCP_OPEN_SERVER, TCP_GPIO_SERVER_PORT, TCP_PURPOSE_TCP_GPIO_SERVER);
             if (mySocket == INVALID_SOCKET) {
                 return;
             }
@@ -148,7 +113,7 @@ void TCPToUpperServer(void) {
             // If there are zero bytes in the queue, don't do anything
             if (numBytes == 0) {
                 myCommand = DO_NO_COMMAND;
-            } else if (numBytes > 7) {
+            } else if (numBytes > MAX_CMD_LENGTH + 2) {
                 userCmd[0] = (BYTE) '\0';
                 myCommand = DO_FIND;
                 TCPDiscard(mySocket);
@@ -159,10 +124,10 @@ void TCPToUpperServer(void) {
                 TCPGetArray(mySocket, &userCmd, numBytes - 2);
                 // So if there's anything else in there, discard it
                 TCPDiscard(mySocket);
-                // Null terminate string
+                // Null terminate command string
                 userCmd[numBytes - 2] = '\0';
                 
-                if (userCmd[0] == 'q' || userCmd[0] == 'Q') {
+                if (numBytes == 3 && (userCmd[0] == 'q' || userCmd[0] == 'Q')) {
                     myCommand = DO_QUIT;
                 }
                 else {
@@ -254,8 +219,6 @@ void TCPToUpperServer(void) {
                     TCPPutArray(mySocket, "\x1B[32m Invalid Command\n", strlen("\x1B[32m Invalid Command\n"));
                     break;
             }
-            
-            
             
             promptDisplayed = FALSE;
             myState = SM_FIND_COMMAND;
