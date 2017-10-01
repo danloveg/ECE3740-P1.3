@@ -71,6 +71,10 @@
 #include "TCPIP Stack/ZeroconfMulticastDNS.h"
 #endif
 
+#if defined(STACK_USE_TCP_TO_UPPER_SERVER)
+#include "PortConfig.h"
+#endif
+
 // Include functions specific to this stack application
 #include "MainDemo.h"
 
@@ -296,6 +300,11 @@ int main(void)
 
     mDNSMulticastFilterRegister();			
 	#endif
+
+    
+    #if defined(STACK_USE_TCP_TO_UPPER_SERVER)
+    portInit();
+    #endif
 
 	// Now that all items are initialized, begin the co-operative
 	// multitasking loop.  This infinite loop will continuously 
