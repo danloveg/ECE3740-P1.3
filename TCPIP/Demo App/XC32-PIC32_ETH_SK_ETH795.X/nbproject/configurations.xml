@@ -159,7 +159,7 @@
       <itemPath>../CustomSSLCert.c</itemPath>
       <itemPath>../MainDemo.c</itemPath>
       <itemPath>../LEDTCPServer.c</itemPath>
-      <itemPath>../TCPToUpperServer.c</itemPath>
+      <itemPath>../TCPLedToggleServer.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

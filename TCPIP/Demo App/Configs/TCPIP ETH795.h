@@ -247,7 +247,7 @@
 	// Allocate how much total RAM (in bytes) you want to allocate
 	// for use by your TCP TCBs, RX FIFOs, and TX FIFOs.
 	#define TCP_ETH_RAM_SIZE					(0ul)
-	#define TCP_PIC_RAM_SIZE					(12669 + 10*2 + 44 + 200 + 20 + (2 + 44 + 200 + 2))
+	#define TCP_PIC_RAM_SIZE					(12669 + 10*2 + 44 + 200 + 20 + (2 + 44 + 200 + 20))
 //	#define TCP_PIC_RAM_SIZE					(16384ul)
 	#define TCP_SPI_RAM_SIZE					(0ul)
 	#define TCP_SPI_RAM_BASE_ADDRESS			(0x00)
@@ -312,7 +312,7 @@
 			//{TCP_PURPOSE_BERKELEY_SERVER, TCP_PIC_RAM, 25, 20},
 			//{TCP_PURPOSE_BERKELEY_CLIENT, TCP_PIC_RAM, 125, 100},
 			{TCP_PURPOSE_LED_SERVER, TCP_PIC_RAM, 200, 20},
-            {TCP_PURPOSE_TCP_TO_UPPER_SERVER, TCP_PIC_RAM, 200, 2}
+            {TCP_PURPOSE_TCP_TO_UPPER_SERVER, TCP_PIC_RAM, 200, 20}
 		};
 		#define END_OF_TCP_CONFIGURATION
 	#endif
