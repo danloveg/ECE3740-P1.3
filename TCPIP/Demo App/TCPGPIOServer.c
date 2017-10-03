@@ -164,59 +164,59 @@ void TCPGPIOServer(void) {
             switch (executeCommand) {
                 case LED1:
                     ledOn(1, TRUE);
-                    TCPPutArray(mySocket, "\x1B[32m LED1 is ON\n", strlen("\x1B[32m LED1 is ON\n"));
+                    TCPPutArray(mySocket, (BYTE*)"\x1B[32m LED1 is ON\n", strlen("\x1B[32m LED1 is ON\n"));
                     break;
                 case NOT_LED1:
                     ledOn(1, FALSE);
-                    TCPPutArray(mySocket, "\x1B[32m LED1 is OFF\n", strlen("\x1B[32m LED1 is OFF\n"));
+                    TCPPutArray(mySocket, (BYTE*)"\x1B[32m LED1 is OFF\n", strlen("\x1B[32m LED1 is OFF\n"));
                     break;
                 case LED2:
                     ledOn(2, TRUE);
-                    TCPPutArray(mySocket, "\x1B[32m LED2 is ON\n", strlen("\x1B[32m LED2 is ON\n"));
+                    TCPPutArray(mySocket, (BYTE*)"\x1B[32m LED2 is ON\n", strlen("\x1B[32m LED2 is ON\n"));
                     break;
                 case NOT_LED2:
                     ledOn(2, FALSE);
-                    TCPPutArray(mySocket, "\x1B[32m LED2 is OFF\n", strlen("\x1B[32m LED2 is OFF\n"));
+                    TCPPutArray(mySocket, (BYTE*)"\x1B[32m LED2 is OFF\n", strlen("\x1B[32m LED2 is OFF\n"));
                     break;
                 case LED3:
                     ledOn(3, TRUE);
-                    TCPPutArray(mySocket, "\x1B[32m LED3 is ON\n", strlen("\x1B[32m LED3 is ON\n"));
+                    TCPPutArray(mySocket, (BYTE*)"\x1B[32m LED3 is ON\n", strlen("\x1B[32m LED3 is ON\n"));
                     break;
                 case NOT_LED3:
                     ledOn(3, FALSE);
-                    TCPPutArray(mySocket, "\x1B[32m LED3 is OFF\n", strlen("\x1B[32m LED3 is OFF\n"));
+                    TCPPutArray(mySocket, (BYTE*)"\x1B[32m LED3 is OFF\n", strlen("\x1B[32m LED3 is OFF\n"));
                     break;
                 case LED4:
                     ledOn(4, TRUE);
-                    TCPPutArray(mySocket, "\x1B[32m LED4 is ON\n", strlen("\x1B[32m LED4 is ON\n"));
+                    TCPPutArray(mySocket, (BYTE*)"\x1B[32m LED4 is ON\n", strlen("\x1B[32m LED4 is ON\n"));
                     break;
                 case NOT_LED4:
                     ledOn(4, FALSE);
-                    TCPPutArray(mySocket, "\x1B[32m LED4 is OFF\n", strlen("\x1B[32m LED4 is OFF\n"));
+                    TCPPutArray(mySocket, (BYTE*)"\x1B[32m LED4 is OFF\n", strlen("\x1B[32m LED4 is OFF\n"));
                     break;
                 case BTN1:
                     if (buttonPressed(1) == TRUE) {
-                        TCPPutArray(mySocket, "\x1B[32m BTN1 is pressed\n", strlen("\x1B[32m BTN1 is pressed\n"));
+                        TCPPutArray(mySocket, (BYTE*)"\x1B[32m BTN1 is pressed\n", strlen("\x1B[32m BTN1 is pressed\n"));
                     } else {
-                        TCPPutArray(mySocket, "\x1B[32m BTN1 is NOT pressed\n", strlen("\x1B[32m BTN1 is NOT pressed\n"));
+                        TCPPutArray(mySocket, (BYTE*)"\x1B[32m BTN1 is NOT pressed\n", strlen("\x1B[32m BTN1 is NOT pressed\n"));
                     }
                     break;
                 case BTN2:
                     if (buttonPressed(2) == TRUE) {
-                        TCPPutArray(mySocket, "\x1B[32m BTN2 is pressed\n", strlen("\x1B[32m BTN2 is pressed\n"));
+                        TCPPutArray(mySocket, (BYTE*)"\x1B[32m BTN2 is pressed\n", strlen("\x1B[32m BTN2 is pressed\n"));
                     } else {
-                        TCPPutArray(mySocket, "\x1B[32m BTN2 is NOT pressed\n", strlen("\x1B[32m BTN2 is NOT pressed\n"));
+                        TCPPutArray(mySocket, (BYTE*)"\x1B[32m BTN2 is NOT pressed\n", strlen("\x1B[32m BTN2 is NOT pressed\n"));
                     }
                     break;
                 case BTN3:
                     if (buttonPressed(3) == TRUE) {
-                        TCPPutArray(mySocket, "\x1B[32m BTN3 is pressed\n", strlen("\x1B[32m BTN3 is pressed\n"));
+                        TCPPutArray(mySocket, (BYTE*)"\x1B[32m BTN3 is pressed\n", strlen("\x1B[32m BTN3 is pressed\n"));
                     } else {
-                        TCPPutArray(mySocket, "\x1B[32m BTN3 is NOT pressed\n", strlen("\x1B[32m BTN3 is NOT pressed\n"));
+                        TCPPutArray(mySocket, (BYTE*)"\x1B[32m BTN3 is NOT pressed\n", strlen("\x1B[32m BTN3 is NOT pressed\n"));
                     }
                     break;
                 default:
-                    TCPPutArray(mySocket, "\x1B[32m Invalid Command\n", strlen("\x1B[32m Invalid Command\n"));
+                    TCPPutArray(mySocket, (BYTE*)"\x1B[32m Invalid Command\n", strlen("\x1B[32m Invalid Command\n"));
                     break;
             }
             
