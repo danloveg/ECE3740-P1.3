@@ -12,22 +12,22 @@
 #define TCP_GPIO_SERVER_PORT    7777
 #define MAX_CMD_LENGTH 5
 
-static enum _myState {
+typedef enum _myState {
     SM_OPEN_SERVER_SOCKET = 0,
     SM_LISTEN_FOR_CLIENT_CONNECTION,
     SM_DISPLAY_MENU,
     SM_FIND_COMMAND,
     SM_PROCESS_COMMAND,
     SM_DISCONNECT_CLIENT
-};
+} state;
 
-static enum _commandEnums {
+typedef enum _commandEnums {
     DO_NO_COMMAND = 0,
     DO_QUIT,
     DO_FIND,
-};
+} command;
 
-static enum _parsedCommand {
+typedef enum _parsedCommand {
     INVALID = 0,
     LED1,
     LED2,
@@ -40,13 +40,13 @@ static enum _parsedCommand {
     BTN1,
     BTN2,
     BTN3
-};
+} parsedCommand;
 
-typedef enum _myState state;
-typedef enum _commandEnums command;
-typedef enum _parsedCommand parsedCommand;
+// typedef enum _myState state;
+//typedef enum _commandEnums command;
+//typedef enum _parsedCommand parsedCommand;
 
-parsedCommand findCommand (char *u);
+parsedCommand findCommand (BYTE* u);
 
 #endif	/* TCPGPIOSERVER_H */
 

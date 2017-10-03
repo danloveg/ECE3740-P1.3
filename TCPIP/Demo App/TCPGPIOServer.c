@@ -103,7 +103,7 @@ void TCPGPIOServer(void) {
                 }
 
                 // Display a prompt
-                TCPPutArray(mySocket, "\x1B[33m $ \x1B[37m", size);
+                TCPPutArray(mySocket, (BYTE*)"\x1B[33m $ \x1B[37m", size);
                 promptDisplayed = TRUE;
             }
             
@@ -121,7 +121,7 @@ void TCPGPIOServer(void) {
             // Otherwise, get the user's command they sent, q is quit
             else {
                 // All commands have a max length
-                TCPGetArray(mySocket, &userCmd, numBytes - 2);
+                TCPGetArray(mySocket, (BYTE*)&userCmd, numBytes - 2);
                 // So if there's anything else in there, discard it
                 TCPDiscard(mySocket);
                 // Null terminate command string
@@ -146,7 +146,7 @@ void TCPGPIOServer(void) {
                     break;
                 case DO_FIND:
                     // User entered a command, find it to process
-                    executeCommand = findCommand(&userCmd);
+                    executeCommand = findCommand((BYTE*)&userCmd);
                     myState = SM_PROCESS_COMMAND;
                     break;
             }
@@ -233,7 +233,8 @@ void TCPGPIOServer(void) {
     }
 }
 
-parsedCommand findCommand(char *usersCommand) {
+parsedCommand findCommand(BYTE* unparsedCommand) {
+    char *usersCommand = (char*) unparsedCommand;
     parsedCommand cmd;
      
     if (strcmp(usersCommand, "LED1") == 0) { cmd = LED1; }
